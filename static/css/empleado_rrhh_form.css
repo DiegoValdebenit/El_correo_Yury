@@ -1,0 +1,160 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5F7FA;
+    margin: 0;
+    padding: 20px;
+}
+
+ /* Header */
+ 
+.logo {
+    width: auto;
+    height: 70px;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        height: 40px;
+    }
+}
+
+header {
+    background-color: #F5F7FA;
+    color: #4F4F4F;
+}
+
+h1 {
+    color: #4A90E2;
+    font-size: 1.5rem;
+}
+
+/* NavBar */
+.navbar-custom {
+    background-color: #4A90E2;
+    border-radius: 2vh;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #F5F7FA;
+}
+
+.navbar-custom .nav-link:hover {
+    color: #4F4F4F;
+}
+
+.navbar-custom .navbar-toggler {
+    border-color: #F5F7FA;
+}
+
+.navbar-custom .navbar-collapse {
+    background-color: #4A90E2;
+}
+
+/* MAIN - BODY */
+main {
+    margin-top: 20px;
+}
+
+.form-container {
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    max-width: 900px;
+    margin: auto;
+    color: #3A70C2;
+}
+
+h2 {
+    color: #3A70C2;
+    border-bottom: 2px solid #4A90E2;
+    padding-bottom: 5px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex-basis: 47%;
+    min-width: 200px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #3A70C2;
+    border-radius: 10px;
+    border-color: #3A70C2;
+}
+
+.secondary-button {
+    background-color: #E1ECF4;
+    color: #3A70C2;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.secondary-button:hover {
+    background-color: #CFE0EA;
+}
+
+.primary-button {
+    background-color: #3A70C2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 200px;
+    margin: auto;
+}
+
+.primary-button:hover {
+    background-color: #3A70C2;
+}
+
+.radio-inline {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.radio-inline input[type='radio'] {
+    margin-right: 5px;
+}
+
+
+
+/* FOOTER */
+
+.footer {
+    background-color: #4A90E2;
+    color: #F5F7FA;
+}
+
+.footer .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.footer .text-muted {
+    margin: 0;
+}
