@@ -16,20 +16,19 @@ class Empleado(models.Model):
     area = models.CharField(max_length=15)
     cargo = models.CharField(max_length=25)
 
-class CargaFamiliar(models.Model):
-    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
-    nombres = models.CharField(max_length=50)
-    apellidos = models.CharField(max_length=50)
-    sexo = models.CharField(max_length=10)
-    rut = models.CharField(max_length=15)
-    parentesco = models.CharField(max_length=50)
 
 class ContactoEmergencia(models.Model):
-    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name='contactos')
     nombres = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=50)
     relacion = models.CharField(max_length=50)
     telefono = models.CharField(max_length=30)
 
-
+class CargaFamiliar(models.Model):
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name='cargas_familiares')
+    nombres = models.CharField(max_length=50)
+    apellidos = models.CharField(max_length=50)
+    sexo = models.CharField(max_length=10)
+    rut = models.CharField(max_length=15)
+    parentesco = models.CharField(max_length=50)
 

@@ -1,10 +1,10 @@
 from django import forms
 from empleados_app.models import Empleado, CargaFamiliar, ContactoEmergencia
 
-class FormEmpleados(forms.ModelForm):
+class EmpleadoForm(forms.ModelForm):
     SEXO = [('femenino','Femenino'), ('masculino', 'Masculino')]
     DEPARTAMENTO = [('departamento a','Departamento A'), ('departamento b', 'Departamento B'), ('departamento c', 'Departamento C')]
-    AREA = [('area a','Área A'), ('area b', 'Área B'), ('area c', 'Área C')]
+    AREA = [('area 1','Área 1'), ('area 2', 'Área 2'), ('area 3', 'Área 3')]
     CARGO = [('jefe de rrhh','Jefe de RRHH'), ('empleado de rrhh', 'Empleado de RRHH'), ('empleado de la empresa', 'Empleado de la Empresa')]
 
     class Meta:
@@ -42,26 +42,24 @@ class FormEmpleados(forms.ModelForm):
     fechaIngreso.widget.attrs['class'] = 'form-control'
 
 class CargaFamiliarForm(forms.ModelForm):
+    SEXO = [('femenino','Femenino'), ('masculino', 'Masculino')]
+
     class Meta:
         model = CargaFamiliar
         fields = '__all__'
 
-    SEXO = [('femenino','Femenino'), ('masculino', 'Masculino')]
-
-    nombres = forms.CharField()
-    apellidos = forms.CharField()
+    def __str__(self):
+        return self.rut
+    
     sexo = forms.ChoiceField(choices=SEXO, widget=forms.RadioSelect)
-    rut = forms.CharField()
-    parentesco = forms.CharField()
+
 
 class ContactoEmergenciaForm(forms.ModelForm):
     class Meta:
         model = ContactoEmergencia
         fields = '__all__'
-
-    nombres = forms.CharField()
-    apellidos = forms.CharField()
-    relacion = forms.ChoiceField()
-    telefono = forms.CharField()
+    
+    def __str__(self):
+        return self.rut
     
 

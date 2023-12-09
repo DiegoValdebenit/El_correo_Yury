@@ -1,41 +1,75 @@
-from django.shortcuts import render, redirect
-from empleados_app.forms import FormEmpleados, CargaFamiliarForm, ContactoEmergenciaForm
+from django.shortcuts import render, redirect, get_object_or_404
+from empleados_app.forms import EmpleadoForm, CargaFamiliarForm, ContactoEmergenciaForm
+from empleados_app.models import Empleado, CargaFamiliar
 
 # Create your views here.
 
+def listadoEmpleados(request):
+    empleado = Empleado.objects.all()
+    data = {'empleados': empleado }
+    return render(request, 'listado_empleados.html', data)
+
+def listarCargas(request, IN_id):
+    empleado = get_object_or_404(Empleado, rut=IN_id)
+    cargas = empleado.cargas_familiares.all()
+    data = {'cargas': cargas, 'empleado': empleado}
+    return render(request, 'listado_cargas.html', data)
+
+def listarContactos(request, IN_id):
+    empleado = get_object_or_404(Empleado, rut=IN_id)
+    contactos = empleado.contactos.all()
+    data = {'contactos': contactos, 'empleado': empleado}
+    return render(request, 'listado_contactos.html', data)
+
+
 def agregarEmpleado(request):
     if request.method == 'POST':
-        form = FormEmpleados(request.POST)
+        form = EmpleadoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/formulario_empleado')
+            return redirect('/listado_empleados')
     else:
-        form = FormEmpleados()
+        form = EmpleadoForm()
 
     data = {'form_empleado': form}
     return render(request, 'formulario_empleado.html', data)
 
+def agregar_cargas(request, empleado_rut):
+    empleado = get_object_or_404(Empleado, rut=empleado_rut)
 
-def agregarCarga(request):
     if request.method == 'POST':
-        form = CargaFamiliarForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/reservas')
+        form_carga = CargaFamiliarForm(request.POST)
+        if form_carga.is_valid():
+            carga_familiar = form_carga.save(commit=False)
+            carga_familiar.empleado = empleado
+            carga_familiar.save()
+            return redirect('listar_cargas', IN_id=empleado.rut)
     else:
-        form = CargaFamiliarForm()
+        form_carga = CargaFamiliarForm(initial={'empleado': empleado.rut})
 
-    data = {'form_carga_familiar': form}
-    return render(request, 'formulario_contactos_cargas.html', data)
+    return render(request, 'formulario_cargas.html', {'empleado': empleado, 'form_carga': form_carga})
 
-def agregarContacto(request):
+
+def agregar_contactos(request, empleado_rut):
+    empleado = get_object_or_404(Empleado, rut=empleado_rut)
+
     if request.method == 'POST':
-        form = ContactoEmergenciaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/reservas')
+        form_contacto = ContactoEmergenciaForm(request.POST)
+        if form_contacto.is_valid():
+            contacto_emergencia = form_contacto.save(commit=False)
+            contacto_emergencia.empleado = empleado
+            contacto_emergencia.save()
+            return redirect('listar_contactos', IN_id=empleado.rut)
     else:
-        form = ContactoEmergenciaForm()
+        form_contacto = ContactoEmergenciaForm(initial={'empleado': empleado.rut})
 
-    data = {'form_contacto_emergencia': form}
-    return render(request, 'formulario_contactos_cargas.html', data)
+    return render(request, 'formulario_contactos.html', {'empleado': empleado, 'form_contacto': form_contacto})
+
+
+
+
+
+
+
+
+

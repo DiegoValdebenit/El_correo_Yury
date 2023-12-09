@@ -20,7 +20,10 @@ from empleados_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('listado_empleados/', views.listadoEmpleados, name='listadoEmpleados'),
     path('formulario_empleado/', views.agregarEmpleado),
-    path('formulario_contactos_cargas/', views.agregarCarga),
-    path('formulario_contactos_cargas/', views.agregarContacto),
+    path('listado_cargas/<str:IN_id>/', views.listarCargas, name='listar_cargas'),
+    path('listado_contactos/<str:IN_id>/', views.listarContactos, name='listar_contactos'),
+    path('formulario_cargas/<str:empleado_rut>/', views.agregar_cargas, name='formulario_cargas'),
+    path('formulario_contactos/<str:empleado_rut>/', views.agregar_contactos, name='formulario_contactos'),
 ]

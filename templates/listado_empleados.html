@@ -1,18 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jefe RR.HH</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/jefe_rrhh_table.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="{% static 'css/listado_empleados.css' %}" rel="stylesheet">
+    <title>Empleados</title>
 </head>
-<body>
-    <!-- HEADER -->
-    <header class="bg-light py-3">
+<body">
+      <!-- HEADER -->
+      <header class="bg-light py-3">
         <div class="container">
             <div class="d-flex align-items-center justify-content-between">
-                <img src="../assets/images/logo.png" alt="Logo de El Correo de Yury" class="logo">
+                <img src="{% static 'assets/images/logo.png' %}" alt="Logo de El Correo de Yury" class="logo">
                 <h1 class="mb-0">El Correo de Yury</h1>
             </div>
         </div>
@@ -21,8 +23,8 @@
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="../assets/images/logo.png" alt="" width="60" height="24" class="d-inline-block align-text-top">
-                    El Correo de Yury
+                    <img src="{% static 'assets/images/logo.png' %}" alt="" width="60" height="24" class="d-inline-block align-text-top">
+                    Empleados
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -42,7 +44,7 @@
                 </div>
             </div>
         </nav>
-    <!-- MAIN-BODY -->
+
     <main>
         <div class="filter-bar">
             Sexo:
@@ -52,9 +54,9 @@
             </select>
             Cargo:
             <select id="filter-cargo">
-                <option value="">Jefe de RR.HH</option>
-                <option value="">Empleado de RR.HH</option>
-                <option value="">Empleado de la empresa</option>
+                <option value="">jefe de rrhh</option>
+                <option value="">empleado de rrhh</option>
+                <option value="">empleado de la empresa</option>
             </select>
             Área:
             <select id="filter-area">
@@ -72,35 +74,57 @@
         </div>
 
         <div class="table-container">
+            {% if empleados %}
             <table class="employeesTable">
                 <thead>
                     <tr>
+                        <th># Rut</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
-                        <th>RUT</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
                         <th>Sexo</th>
-                        <th>Cargo</th>
-                        <th>Área</th>
+                        <th>Fecha de ingreso</th>
                         <th>Departamento</th>
+                        <th>Área</th>
+                        <th>Cargo</th>
+                        <th>Cargas Familiares</th>
+                        <th>Contactos de Emergencia</th>
                     </tr>
                 </thead>
                 <tbody id="employeesTableBody">
-                    <!-- Aquí van los datos llamados de Firabase -->
+                    {% for empleado in empleados %}
+                    <tr>
+                        <td>{{empleado.rut}}</td>
+                        <td>{{empleado.nombres}}</td>
+                        <td>{{empleado.apellidos}}</td>
+                        <td>{{empleado.email}}</td>
+                        <td>{{empleado.telefono}}</td>
+                        <td>{{empleado.direccion}}</td>
+                        <td>{{empleado.sexo}}</td> 
+                        <td>{{empleado.fechaIngreso}}</td> 
+                        <td>{{empleado.departamento}}</td> 
+                        <td>{{empleado.area}}</td> 
+                        <td>{{empleado.cargo}}</td>
+                        <td><a href="/listado_cargas/{{empleado.rut}}" class="btn btn-success float-end">Cargas</a> </td>
+                        <td><a href="/listado_contactos/{{empleado.rut}}" class="btn btn-success float-end">Contactos</a><td>
+                        <td><a class="btn btn-success btn-sm" href="/actualizar/{{empleado.rut}}"><i class="bi bi-pencil-square"></i></a></td>       
+                        <td><a class="btn btn-danger btn-sm" href="/eliminar/{{empleado.rut}}"><i class="bi bi-trash"></i></a></td>         
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+                <div class="alert alert-danger text-center">
+                    No se encuentran Empleados en el sistema
+                </div>
+            {% endif %}
+
+            <a href="/" class="btn btn-danger float-start">VOLVER</a>
+            <a href="/formulario_empleado" class="btn btn-success float-end">AGREGAR EMPLEADO</a>
+
         </div>
     </main>
-    <!-- FOOTER -->
-    <footer class="footer mt-auto py-3 bg-light">
-        <div class="container">
-            <span class="text-muted">© 2023 El Correo de Yury - Todos los derechos reservados</span>
-        </div>
-    </footer>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script type="module" src="../js/obtenerDatos.js"></script>
-    <script type="module" src="../seguridad/authUser.js"></script>
-    <script type="module" src="../js/loginLogout/logout.js"></script>
 </body>
 </html>

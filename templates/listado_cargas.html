@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="{% static 'css/listado_empleados.css' %}" rel="stylesheet">
+    <title>Empleados</title>
+</head>
+<body">
+      <!-- HEADER -->
+      <header class="bg-light py-3">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between">
+                <img src="{% static 'assets/images/logo.png' %}" alt="Logo de El Correo de Yury" class="logo">
+                <h1 class="mb-0">El Correo de Yury</h1>
+            </div>
+        </div>
+    </header>
+    <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'assets/images/logo.png' %}" alt="" width="60" height="24" class="d-inline-block align-text-top">
+                    Cargas Familiares
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Listar Trabajadores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../pages/jefe_rrhh_perfil.html">Mi Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="logout-button" href="#">Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+  <main>
+    <div class="table-container">
+        {% if cargas %}
+        <table class="employeesTable">
+            <thead>
+                <tr>
+                    <th># ID</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Sexo</th>
+                    <th>RUT</th>
+                    <th>Parentesco</th>
+                </tr>
+            </thead>
+    
+            <tbody id="employeesTableBody">
+                {% for carga in cargas %}
+                <tr>
+                    <td>{{carga.id}}</td>
+                    <td>{{carga.nombres}}</td>
+                    <td>{{carga.apellidos}}</td>
+                    <td>{{carga.sexo}}</td>
+                    <td>{{carga.rut}}</td>
+                    <td>{{carga.parentesco}}</td>
+                    <td><a class="btn btn-success btn-sm" href="/actualizar/{{empleado.rut}}"><i class="bi bi-pencil-square"></i></a></td>       
+                    <td><a class="btn btn-danger btn-sm" href="/eliminar/{{empleado.rut}}"><i class="bi bi-trash"></i></a></td>         
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+        {% else %}
+            <div class="alert alert-danger text-center">
+                No se encuentran Cargas en el sistema
+            </div>
+        {% endif %}
+    
+        <a href="/listado_empleados" class="btn btn-danger float-start">VOLVER</a>
+        <a href="{% url 'formulario_cargas' empleado_rut=empleado.rut %}" class="btn btn-success float-end">AGREGAR CARGA</a>
+        
+      </div>
+  </main>
+</body>
+</html>
