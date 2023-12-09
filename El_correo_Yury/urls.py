@@ -26,4 +26,7 @@ urlpatterns = [
     path('listado_contactos/<str:IN_id>/', views.listarContactos, name='listar_contactos'),
     path('formulario_cargas/<str:empleado_rut>/', views.agregar_cargas, name='formulario_cargas'),
     path('formulario_contactos/<str:empleado_rut>/', views.agregar_contactos, name='formulario_contactos'),
+    path('eliminar/<str:IN_id>/', views.eliminarEmpleado, name='eliminar_empleado'),
+    path('actualizar/<str:IN_id>', views.modificarDatos_personales),
+
 ]

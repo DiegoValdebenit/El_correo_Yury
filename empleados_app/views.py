@@ -86,8 +86,24 @@ def agregar_contactos(request, empleado_rut):
     return render(request, 'formulario_contactos.html', {'empleado': empleado, 'form_contacto': form_contacto})
 
 
+def eliminarEmpleado(request, IN_id):
+    empleado = Empleado.objects.get(rut = IN_id)
+    empleado.delete()
+    return redirect('/listado_empleados')
+    
 
+def modificarDatos_personales(request, IN_id):
+    empleado = get_object_or_404(Empleado, rut=IN_id)
+    form = EmpleadoForm(instance=empleado)
 
+    if request.method == 'POST':
+        form = EmpleadoForm(request.POST, instance=empleado)
+        if form.is_valid():
+            form.save()
+            return redirect('listadoEmpleados')  # Ajusta la URL de redirección según tu configuración
+
+    data = {'form_empleado': form}
+    return render(request, 'formulario_empleado.html', data)
 
 
 
