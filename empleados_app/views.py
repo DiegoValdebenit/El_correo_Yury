@@ -1,12 +1,32 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from empleados_app.forms import EmpleadoForm, CargaFamiliarForm, ContactoEmergenciaForm
-from empleados_app.models import Empleado, CargaFamiliar
+from empleados_app.models import Empleado
+
 
 # Create your views here.
 
 def listadoEmpleados(request):
-    empleado = Empleado.objects.all()
-    data = {'empleados': empleado }
+    # Obtener los parámetros de filtro de la URL
+    sexo = request.GET.get('sexo', None)
+    cargo = request.GET.get('cargo', None)
+    area = request.GET.get('area', None)
+    departamento = request.GET.get('departamento', None)
+
+    print(f'Sexo: {sexo}, Cargo: {cargo}, Área: {area}, Departamento: {departamento}')
+
+    # Filtrar empleados según los parámetros
+    empleados = Empleado.objects.all()
+
+    if sexo:
+        empleados = empleados.filter(sexo=sexo)
+    if cargo:
+        empleados = empleados.filter(cargo=cargo)
+    if area:
+        empleados = empleados.filter(area=area)
+    if departamento:
+        empleados = empleados.filter(departamento=departamento)
+
+    data = {'empleados': empleados}
     return render(request, 'listado_empleados.html', data)
 
 def listarCargas(request, IN_id):
@@ -64,6 +84,8 @@ def agregar_contactos(request, empleado_rut):
         form_contacto = ContactoEmergenciaForm(initial={'empleado': empleado.rut})
 
     return render(request, 'formulario_contactos.html', {'empleado': empleado, 'form_contacto': form_contacto})
+
+
 
 
 

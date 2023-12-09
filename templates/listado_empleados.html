@@ -44,30 +44,36 @@
 
     <main>
         <div class="filter-bar">
-            Sexo:
-            <select id="filter-sexo">
-                <option value="">Masculino</option>
-                <option value="">Femenino</option>
-            </select>
-            Cargo:
-            <select id="filter-cargo">
-                <option value="">jefe de rrhh</option>
-                <option value="">empleado de rrhh</option>
-                <option value="">empleado de la empresa</option>
-            </select>
-            Área:
-            <select id="filter-area">
-                <option value="">Área 1</option>
-                <option value="">Área 2</option>
-                <option value="">Área 3</option>
-            </select>
-            Departamento:
-            <select id="filter-departamento">
-                <option value="">Departamento A</option>
-                <option value="">Departamento B</option>
-                <option value="">Departamento C</option>
-            </select>
-            <button id="filter-button">Filtrar</button>
+            <form method="get" action="{% url 'listadoEmpleados' %}">
+                Sexo:
+                <select name="sexo">
+                    <option value=""></option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                </select>
+                Cargo:
+                <select name="cargo">
+                    <option value=""></option>
+                    <option value="jefe de rrhh">Jefe de RR.HH</option>
+                    <option value="empleado de rrhh">Empleado de RR.HH</option>
+                    <option value="empleado de la empresa">Empleado de la Empresa</option>
+                </select>
+                Área:
+                <select name="area">
+                    <option value=""></option>
+                    <option value="area 1">Área 1</option>
+                    <option value="area 2">Área 2</option>
+                    <option value="area 3">Área 3</option>
+                </select>
+                Departamento:
+                <select name="departamento">
+                    <option value=""></option>
+                    <option value="departamento a">Departamento A</option>
+                    <option value="departamento b">Departamento B</option>
+                    <option value="departamento c">Departamento C</option>
+                </select>
+                <button type="submit" id="filter-button">Filtrar</button>
+            </form>
         </div>
 
         <div class="table-container">
@@ -120,7 +126,6 @@
 
             <a href="/" class="btn btn-danger float-start">VOLVER</a>
             <a href="/formulario_empleado" class="btn btn-success float-end">AGREGAR EMPLEADO</a>
-
         </div>
     </main>
 </body>
