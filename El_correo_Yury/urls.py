@@ -28,5 +28,8 @@ urlpatterns = [
     path('formulario_contactos/<str:empleado_rut>/', views.agregar_contactos, name='formulario_contactos'),
     path('eliminar/<str:IN_id>/', views.eliminarEmpleado, name='eliminar_empleado'),
     path('actualizar/<str:IN_id>', views.modificarDatos_personales),
-
+    path('modificar_cargas/<str:empleado_rut>/<int:carga_id>/', views.modificarCargas, name='modificar_cargas'),
+    path('modificar_contactos/<str:empleado_rut>/<int:contacto_id>/', views.modificarContactos, name='modificar_contactos'),
+    path('eliminar_carga/<str:empleado_rut>/<int:carga_id>/', views.eliminarCarga, name='eliminar_carga'),
+    path('eliminar_contacto/<str:empleado_rut>/<int:contacto_id>/', views.eliminarContacto, name='eliminar_contacto'),
 ]

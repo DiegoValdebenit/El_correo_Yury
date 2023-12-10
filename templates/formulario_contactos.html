@@ -46,7 +46,7 @@
     <!-- MAIN-BODY -->
     <main>
         <div class="form-container">
-            <form id="form" method="post" action="{% url 'formulario_contactos' empleado.rut %}">
+            <form id="form" method="post" action="{{ url_modificar_contactos }}">
                 {% csrf_token %}
                 <h2>DATOS DE CONTACTOS DE EMERGENCIA</h2>
                 <div class="form-row">

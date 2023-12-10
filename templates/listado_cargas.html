@@ -69,8 +69,13 @@
                     <td>{{carga.sexo}}</td>
                     <td>{{carga.rut}}</td>
                     <td>{{carga.parentesco}}</td>
-                    <td><a class="btn btn-success btn-sm" href="/actualizar/{{empleado.rut}}"><i class="bi bi-pencil-square"></i></a></td>       
-                    <td><a class="btn btn-danger btn-sm" href="/eliminar/{{empleado.rut}}"><i class="bi bi-trash"></i></a></td>         
+                    <td><a class="btn btn-success btn-sm" href="{% url 'modificar_cargas' empleado_rut=empleado.rut carga_id=carga.id %}"><i class="bi bi-pencil-square"></i></a></td>
+                    <td>
+                        <form method="post" action="{% url 'eliminar_carga' empleado_rut=empleado.rut carga_id=carga.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

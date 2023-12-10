@@ -66,8 +66,13 @@
                     <td>{{contacto.apellidos}}</td>
                     <td>{{contacto.relacion}}</td>
                     <td>{{contacto.telefono}}</td>
-                    <td><a class="btn btn-success btn-sm" href="/actualizar/{{empleado.rut}}"><i class="bi bi-pencil-square"></i></a></td>       
-                    <td><a class="btn btn-danger btn-sm" href="/eliminar/{{empleado.rut}}"><i class="bi bi-trash"></i></a></td>         
+                    <td><a class="btn btn-success btn-sm" href="{% url 'modificar_contactos' empleado_rut=empleado.rut contacto_id=contacto.id %}"><i class="bi bi-pencil-square"></i></a></td>       
+                    <td>
+                        <form method="post" action="{% url 'eliminar_contacto' empleado_rut=empleado.rut contacto_id=contacto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
